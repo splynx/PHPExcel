@@ -1988,7 +1988,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             }
 
             // offset: 10; size: 1; underline type
-            $underlineType = ord($recordData{10});
+            $underlineType = ord($recordData[10]);
             switch ($underlineType) {
                 case 0x00:
                     break; // no underline
@@ -3906,7 +3906,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             $xfIndex = self::getInt2d($recordData, 4);
 
             // offset: 6; size: 8; result of the formula
-            if ((ord($recordData[6]) == 0) && (ord($recordData{12}) == 255) && (ord($recordData{13}) == 255)) {
+            if ((ord($recordData[6]) == 0) && (ord($recordData[12]) == 255) && (ord($recordData[13]) == 255)) {
                 // String formula. Result follows in appended STRING record
                 $dataType = PHPExcel_Cell_DataType::TYPE_STRING;
 
@@ -3919,20 +3919,20 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                 // read STRING record
                 $value = $this->readString();
             } elseif ((ord($recordData[6]) == 1)
-                && (ord($recordData{12}) == 255)
-                && (ord($recordData{13}) == 255)) {
+                && (ord($recordData[12]) == 255)
+                && (ord($recordData[13]) == 255)) {
                 // Boolean formula. Result is in +2; 0=false, 1=true
                 $dataType = PHPExcel_Cell_DataType::TYPE_BOOL;
                 $value = (bool) ord($recordData[8]);
             } elseif ((ord($recordData[6]) == 2)
-                && (ord($recordData{12}) == 255)
-                && (ord($recordData{13}) == 255)) {
+                && (ord($recordData[12]) == 255)
+                && (ord($recordData[13]) == 255)) {
                 // Error formula. Error code is in +2
                 $dataType = PHPExcel_Cell_DataType::TYPE_ERROR;
                 $value = PHPExcel_Reader_Excel5_ErrorCode::lookup(ord($recordData[8]));
             } elseif ((ord($recordData[6]) == 3)
-                && (ord($recordData{12}) == 255)
-                && (ord($recordData{13}) == 255)) {
+                && (ord($recordData[12]) == 255)
+                && (ord($recordData[13]) == 255)) {
                 // Formula result is a null string
                 $dataType = PHPExcel_Cell_DataType::TYPE_NULL;
                 $value = '';
@@ -7297,10 +7297,10 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
         $r = ord($rgb[0]);
 
         // offset: 1; size: 1; Green component
-        $g = ord($rgb{1});
+        $g = ord($rgb[1]);
 
         // offset: 2; size: 1; Blue component
-        $b = ord($rgb{2});
+        $b = ord($rgb[2]);
 
         // HEX notation, e.g. 'FF00FC'
         $rgb = sprintf('%02X%02X%02X', $r, $g, $b);
